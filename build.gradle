@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+}
+
+group 'com.aceinteract.twitter'
+version '1.0-SNAPSHOT'
+
+mainClassName = 'com.aceinteract.twitter.cli.MainApplicationKt'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'com.github.kgilmer:kotlinx-cli:bdb0c81'
+    implementation "org.twitter4j:twitter4j-core:4.0.7"
+    implementation "org.twitter4j:twitter4j-stream:4.0.7"
+    implementation "org.twitter4j:twitter4j-async:4.0.7"
+    implementation 'no.tornado:tornadofx:1.7.18'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest { attributes 'Main-Class': 'com.aceinteract.twitter.cli.MainApplicationKt' }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
